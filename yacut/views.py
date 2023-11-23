@@ -14,7 +14,7 @@ def generate_url_page():
         if not url or len(url) == 0 or url is None:
             url: str = get_unique_short_id()
         if check_original(url):
-            flash('Предложенный вариант короткой ссылки уже существует.')
+            flash("Предложенный вариант короткой ссылки уже существует.", category='fail')
         else:
             shorturl: URLMap = URLMap(
                 original=form.original_link.data,
