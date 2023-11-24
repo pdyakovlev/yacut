@@ -15,11 +15,11 @@ class URLMap(db.Model):
         value = dict(
             url=self.original,
             short_link=url_for(
-                "short_url", short=self.short, _external=True
+                'short_url', short=self.short, _external=True
             )
         )
         return value
 
     def from_dict(self, data):
-        for key, value in zip(("original", "short"), ("url", "custom_id")):
+        for key, value in zip(('original', 'short'), ('url', 'custom_id')):
             setattr(self, key, data[value])

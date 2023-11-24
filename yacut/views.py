@@ -6,7 +6,7 @@ from .models import URLMap
 from .utils import get_unique_short_id, check_original
 
 
-@app.route('/', methods=("GET", "POST"))
+@app.route('/', methods=('GET', 'POST'))
 def generate_url_page():
     form: ShortURLForm = ShortURLForm()
     if form.validate_on_submit():
@@ -14,7 +14,7 @@ def generate_url_page():
         if not url or len(url) == 0 or url is None:
             url: str = get_unique_short_id()
         if check_original(url):
-            flash("Предложенный вариант короткой ссылки уже существует.", category='fail')
+            flash('Предложенный вариант короткой ссылки уже существует.', category='fail')
         else:
             shorturl: URLMap = URLMap(
                 original=form.original_link.data,
@@ -22,11 +22,11 @@ def generate_url_page():
             )
             db.session.add(shorturl)
             db.session.commit()
-            flash(url_for("short_url", short=url, _external=True), "link")
+            flash(url_for('short_url', short=url, _external=True), 'link')
     return render_template('index.html', form=form)
 
 
-@app.route('/<string:short>', methods=("GET",))
+@app.route('/<string:short>', methods=('GET',))
 def short_url(short):
     return redirect(
         URLMap.query.filter_by(short=short).first_or_404().original
