@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import URLField, StringField, SubmitField
-from wtforms.validators import DataRequired, Length, URL, Optional, Regexp
-from .constants import MIN_SHORT_URL_LEN, MAX_SHORT_URL_LEN
+from wtforms import StringField, SubmitField, URLField
+from wtforms.validators import URL, DataRequired, Length, Optional, Regexp
+
+from .constants import MAX_SHORT_URL_LEN, MIN_SHORT_URL_LEN
 
 
 class ShortURLForm(FlaskForm):

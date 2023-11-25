@@ -1,16 +1,17 @@
+from http import HTTPStatus
+
 from flask import jsonify, request
 
 from . import app, db
 from .constants import MATCH
 from .error_handlers import InvalidAPIUsage
 from .models import URLMap
-from .utils import get_unique_short_id, check_original
-from http import HTTPStatus
+from .utils import check_original, get_unique_short_id
 
 
 @app.route('/api/id/<string:short_id>/', methods=('GET',))
 def get_link(short_id):
-    '''Получает оригинальную ссылку по короткой ссылке.'''
+    """Получает оригинальную ссылку по короткой ссылке."""
     target: str = check_original(short_id)
     if not target:
         raise InvalidAPIUsage('Указанный id не найден', HTTPStatus.NOT_FOUND)
@@ -19,7 +20,7 @@ def get_link(short_id):
 
 @app.route('/api/id/', methods=('POST',))
 def push_link():
-    '''Создаёт новую ссылку.'''
+    """Создаёт новую ссылку."""
     data: dict[str, str] = request.get_json()
     if not data:
         raise InvalidAPIUsage('Отсутствует тело запроса')
